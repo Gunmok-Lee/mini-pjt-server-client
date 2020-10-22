@@ -5,6 +5,7 @@ import java.io.InputStream;
 public class CommandReboot {
   public static void main(String[] args) {
     String os = System.getProperty("os.name").toLowerCase();
+    // os 구분자
 
     if (os.contains("linux")) {
       try {
@@ -15,6 +16,7 @@ public class CommandReboot {
       } catch (Exception e) {
         e.printStackTrace();
       }
+
     } else if (os.contains("win")) {
       try {
         InputStream is;
@@ -24,6 +26,7 @@ public class CommandReboot {
       } catch (Exception e) {
         e.printStackTrace();
       }
+
     } else if (os.contains("mac")) {
       try {
         InputStream is;
@@ -33,6 +36,7 @@ public class CommandReboot {
       } catch (Exception e) {
         e.printStackTrace();
       }
+
     } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
       try {
         InputStream is;
