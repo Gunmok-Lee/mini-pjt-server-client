@@ -53,6 +53,7 @@ public class MySocketServer extends Thread {
 						name = readValue; // 이름 할당
 						identify = true;
 						writer.println(name + "님이 접속하셨습니다.");
+						writer.println("/admin");
 						continue;
 					} else {
 						name = readValue; // 이름 할당
@@ -60,6 +61,7 @@ public class MySocketServer extends Thread {
 						writer.println(name + "님이 접속하셨습니다.");
 						continue;
 					}
+					
 				}
 				
 				if(readValue.length() != 0 && readValue.substring(0,1).equals("/")) {
