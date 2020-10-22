@@ -1,4 +1,4 @@
-package mini.pjt.server.client.MyServer;
+package mini.pjt.server.client.MyClient;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,6 +6,8 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Scanner;
+
+import mini.pjt.server.client.MyClient.Command.GoEom;
 
 public class Client{
 	static Socket socket;
@@ -56,8 +58,10 @@ public class Client{
 				
 				// 문자열로 변환
 				String data = new String(byteArr, 0, readByteCount, "UTF-8");
-				
-				System.out.println("[받기 완료] "  + data);
+				if(data.equals("/goeom")) {
+					GoEom.goeomWeb();
+				}
+				System.out.println(data);
 			} catch (Exception e) {
 				System.out.println("[서버 통신 안됨]");
 				stopClient();
@@ -78,7 +82,7 @@ public class Client{
 					// 데이터 write
 					outputStream.write(byteArr);
 					outputStream.flush();
-					System.out.println("[보내기 완료]");
+					//System.out.println("[보내기 완료]");
 				} catch(Exception e) {
 					System.out.println("[서버 통신 안됨]");
 					stopClient();
@@ -93,6 +97,7 @@ public class Client{
 		startClient();
 		while(true) {
 			Scanner sc = new Scanner(System.in);
+			//System.out.print("입력 > ");
 			String message = sc.nextLine();
 			// stop client라고 입력하면 해당 클라이언트 종료
 			if(message.equals("stop client"))
