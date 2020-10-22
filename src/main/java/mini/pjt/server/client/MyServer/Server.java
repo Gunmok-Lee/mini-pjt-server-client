@@ -136,7 +136,6 @@ public class Server {
 
 							if (!gameStatus) {
 								// 클라이언트가 stop server라고 보내오면 서버 종료
-								System.out.println("1진입");
 								if (data.equals("/start")) {
 									readyCount += 1;
 									if (readyCount == connections.size()) {
@@ -173,6 +172,7 @@ public class Server {
 										winner = key;
 										break;
 									}
+									System.out.println(pointList);
 									for (Client client : connections) {
 										client.send("축하합니다! 모든 단어를 입력 하셨습니다.\n게임을 종료합니다.");
 										if(client == winner) {
@@ -218,8 +218,23 @@ public class Server {
 								}
 								
 								if (wordList.size() <= 0) {
+									List<Client> keySetList = new ArrayList<>(pointList.keySet());
+									Client winner = null;
+									Collections.sort(keySetList, (o1, o2) -> (pointList.get(o2).compareTo(pointList.get(o1))));
+									for(Client key : keySetList) {
+										//System.out.println("key : " + key + " / " + "value : " + pointList.get(key));
+										winner = key;
+										break;
+									}
+									
 									for (Client client : connections) {
 										client.send("축하합니다! 모든 단어를 입력 하셨습니다.\n게임을 종료합니다.");
+										if(client == winner) {
+											client.send("승리하셨습니다.");
+											client.send("점수 : " + pointList.get(winner));
+										} else {
+											client.send("패배하였습니다.");
+										}
 									}
 									gameStatus = false;
 									readyCount = 0;
