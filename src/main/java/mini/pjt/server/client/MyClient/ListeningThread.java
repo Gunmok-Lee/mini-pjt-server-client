@@ -24,20 +24,19 @@ public class ListeningThread extends Thread { // �������� ��
 
         if (reader.readLine() == "/SystemOs") {
           new CommandSystemOs();
-        }
-
-        if (reader.readLine() == "/config") {
+        } else if (reader.readLine() == "/config") {
           new CommandConfig();
-        }
-        System.out.println(reader.readLine());
+        } else if (reader.readLine() == "/shutdown") {
+          new CommandShutdown();
+          break;
+        } else if (reader.readLine() == "/reboot") {
+          new CommandReboot();
+          break;
+        } else
+          System.out.println(reader.readLine());
       }
-
-
-
     } catch (Exception e) {
       e.printStackTrace();
     }
-
   }
-
 }
