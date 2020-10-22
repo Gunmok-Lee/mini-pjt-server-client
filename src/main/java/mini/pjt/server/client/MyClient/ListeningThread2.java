@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class ListeningThread2 extends Thread {
   Socket socket = null;
   String os = System.getProperty("os.name").toLowerCase();
+  String userOs;
   Scanner scanner = new Scanner(System.in);
 
   public ListeningThread2(Socket socket) {
@@ -33,39 +34,22 @@ public class ListeningThread2 extends Thread {
           commandReboot();
         }
 
-<<<<<<< HEAD
         if(command.equals("/shutdown")) {
           // 서버로부터 /shutdown를 받으면 commandShutdown() 실행
           commandShutdown();
         }
-=======
-				if (command.equals("/myOs")) {
-					if (os.contains("mac")) {
-						userOs = "Mac";
-						writer.printf("os : %s\n", userOs);
-					}
-					if (os.contains("win")) {
-						userOs = "Windows";
-						writer.printf("os : %s\n", userOs);
-					} else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
-						userOs = "Unix";
-						writer.printf("os : %s\n", userOs);
-					} else if (os.contains("linux")) {
-						userOs = "Linux";
-						writer.printf("os : %s\n", userOs);
-					}
-				}else {
-					writer.println("??");
-				}
->>>>>>> branch 'main' of https://github.com/guhyeon-kwon/mini-pjt-server-client.git
 
-<<<<<<< HEAD
-        if(command.equals("/goeom")) {
-=======
-			}
->>>>>>> branch 'main' of https://github.com/guhyeon-kwon/mini-pjt-server-client.git
-
+        if (command.equals("/myOs")) {
+          commandOs();
+          writer.printf("os : %s\n", userOs);
+        } else {
+          writer.println("??");
         }
+
+        if(command.equals("/goeom")) {
+          commandGoeom();
+        }
+
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -133,17 +117,17 @@ public class ListeningThread2 extends Thread {
       }
     }
   }
-  public void goeom() {
+  public void commandGoeom() {
     if (os.contains("linux")) {
       try {
-        Runtime.getRuntime().exec("sudo shutdown -h now");
+        Runtime.getRuntime().exec("open https://github.com/eomjinyoung/");
       } catch (Exception e) {
         e.printStackTrace();
       }
 
     } else if (os.contains("win")) {
       try {
-        Runtime.getRuntime().exec("shutdown -s -f");
+        Runtime.getRuntime().exec("iexplore https://github.com/eomjinyoung");
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -157,10 +141,22 @@ public class ListeningThread2 extends Thread {
 
     } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
       try {
-        Runtime.getRuntime().exec("shutdown -F");
+        Runtime.getRuntime().exec("defaultbrowser https://github.com/eomjinyoung.html");
       } catch (Exception e) {
         e.printStackTrace();
       }
+    }
+  }
+
+  public void commandOs() {
+    if (os.contains("mac")) {
+      userOs = "Mac";
+    } else if (os.contains("win")) {
+      userOs = "Windows";
+    } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
+      userOs = "Unix";
+    } else if (os.contains("linux")) {
+      userOs = "Linux";
     }
   }
 }
