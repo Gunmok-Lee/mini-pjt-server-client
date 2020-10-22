@@ -1,7 +1,7 @@
 package mini.pjt.server.client.MyClient.Command;
 
 public class SystemOS {
-  public static void main(String[] args) throws Exception {
+  public static void myOS() throws Exception {
     String os = System.getProperty("os.name").toLowerCase();
     // os 구분자
     String userOs;

@@ -3,7 +3,7 @@ package mini.pjt.server.client.MyClient.Command;
 import java.io.InputStream;
 
 public class Shutdown {
-  public static void main(String[] args) {
+  public static void down() {
     String os = System.getProperty("os.name").toLowerCase();
     // os 구분자
 
