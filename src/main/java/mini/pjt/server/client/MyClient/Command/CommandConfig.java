@@ -1,0 +1,41 @@
+package mini.pjt.server.client.MyClient.Command;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+public class CommandConfig {
+  public static void main(String[] args) {
+    String os = System.getProperty("os.name").toLowerCase();
+
+    if (os.contains("win")) {
+      try {
+        String line;
+        InputStream is;
+        is = Runtime.getRuntime().exec("ipconfig").getInputStream();
+        BufferedReader br = new BufferedReader(new InputStreamReader(is, "MS949"));
+        while((line = br.readLine()) != null) {
+          System.out.println(line);
+        }
+        br.close();
+        is.close();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    } else if (os.contains("nix") || os.contains("nux") || os.contains("aix") || os.contains("linux") || os.contains("mac")) {
+      try {
+        String line;
+        InputStream is;
+        is = Runtime.getRuntime().exec("ifconfig").getInputStream();
+        BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+        while((line = br.readLine()) != null) {
+          System.out.println(line);
+        }
+        br.close();
+        is.close();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+}
