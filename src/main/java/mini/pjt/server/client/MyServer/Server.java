@@ -29,6 +29,7 @@ public class Server {
 	static boolean gameStatus = false;
 	static int readyCount = 0;
 	static Map<Socket, Integer> pointList = new HashMap<Socket, Integer>();
+	static Map<Socket, Client> clientId = new HashMap<Socket, Client>();
 
 	static void startServer() { // 서버 시작 시 호출
 		// 스레드풀 생성
@@ -58,6 +59,10 @@ public class Server {
 								+ Thread.currentThread().getName() + "]");
 						// 클라이언트 접속 요청 시 객체 하나씩 생성해서 저장
 						Client client = new Client(socket);
+						
+//						String id = RandomWord.wordCreate();
+						clientId.put(socket, client);
+						
 						connections.add(client);
 						System.out.println("[연결 개수: " + connections.size() + "]");
 					} catch (Exception e) {
@@ -187,7 +192,11 @@ public class Server {
 								
 								if(data.substring(0,1).equals("/")) {
 									for (Client client : connections) {
-										client.send(data);
+										if(client == clientId.get(socket)) {
+											//
+										} else {											
+											client.send(data);
+										}
 									}
 								}
 								
