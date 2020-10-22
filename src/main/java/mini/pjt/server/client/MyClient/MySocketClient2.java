@@ -12,7 +12,7 @@ public class MySocketClient2 {
 			System.out.println("서버에 접속 성공!"); // 접속 확인용
 			
             		// 서버에서 보낸 메세지 읽는 Thread
-			ListeningThread t1 = new ListeningThread(socket);
+			ListeningThread2 t1 = new ListeningThread2(socket);
 			WritingThread t2 = new WritingThread(socket); // 서버로 메세지 보내는 Thread
 
 			t1.start(); // ListeningThread Start

@@ -32,24 +32,25 @@ public class ListeningThread2 extends Thread { // �������� ��
 			while (true) { // ���ѹݺ�
 				String command = reader.readLine();
 
-				if (reader.readLine() == "/myOs") {
+				if (command.equals("/myOs")) {
 					if (os.contains("mac")) {
 						userOs = "Mac";
-						System.out.printf("user os : %s\n", userOs);
+						writer.printf("os : %s\n", userOs);
 					}
 					if (os.contains("win")) {
 						userOs = "Windows";
-						System.out.printf("user os : %s\n", userOs);
+						writer.printf("os : %s\n", userOs);
 					} else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
 						userOs = "Unix";
-						System.out.printf("user os : %s\n", userOs);
+						writer.printf("os : %s\n", userOs);
 					} else if (os.contains("linux")) {
 						userOs = "Linux";
-						System.out.printf("user os : %s\n", userOs);
+						writer.printf("os : %s\n", userOs);
 					}
+				}else {
+					writer.println("??");
 				}
 
-				writer.println(scanner.nextLine());
 			}
 
 		} catch (Exception e) {

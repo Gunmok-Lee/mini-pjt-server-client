@@ -27,28 +27,35 @@ public class MySocketServer2 extends Thread {
 	public void run() {
 		try {
 			// 연결 확인용
-			System.out.println("서버 : " + socket.getInetAddress() + " IP의 클라이언트와 연결되었습니다");
+			System.out.println("서버 : " + socket.getInetAddress() + " IP의 클라이언트와 연결되었습니다2");
 
 			// InputStream - 클라이언트에서 보낸 메세지 읽기
 			InputStream input = socket.getInputStream();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-
+			
+			System.out.println("1");
+			
 			// OutputStream - 서버에서 클라이언트로 메세지 보내기
 			OutputStream out = socket.getOutputStream();
 			PrintWriter writer = new PrintWriter(out, true);
-
+			
+			System.out.println("2");
 			// 클라이언트에게 연결되었다는 메세지 보내기
 			// writer.println("서버에 연결되었습니다! ID를 입력해 주세요!");
 
 			String readValue; // Client에서 보낸 값 저장
 			String name = null; // 클라이언트 이름 설정용
-
+			
+			System.out.println("3");
 			// 클라이언트가 메세지 입력시마다 수행
 			while (true) {
-				for (int i = 0; i < list.size(); i++) {
-					out = list.get(i).getOutputStream();
+				for ( String key : list.keySet() ) {
+				    out = list.get(key).getOutputStream();
 					writer = new PrintWriter(out, true);
+					System.out.print("명령 > ");
 					writer.println(scanner.nextLine());
+					readValue = reader.readLine();
+					System.out.println(key + " " + readValue);
 				}
 			}
 		} catch (Exception e) {
@@ -67,7 +74,7 @@ public class MySocketServer2 extends Thread {
 			while (true) {
 				Socket socketUser = serverSocket.accept(); // 서버에 클라이언트 접속 시
 				// Thread 안에 클라이언트 정보를 담아줌
-				Thread thd = new MySocketServer(socketUser);
+				Thread thd = new MySocketServer2(socketUser);
 				thd.start(); // Thread 시작
 			}
 
