@@ -23,7 +23,7 @@ public class Client{
         try {
           // 소켓 생성 및 연결 요청
           socket = new Socket();
-          socket.connect(new InetSocketAddress("localhost", 5001));
+          socket.connect(new InetSocketAddress("192.168.0.23", 5001));
         } catch(Exception e) {
           System.out.println("[서버 통신 안됨]");
           if(!socket.isClosed()) { stopClient(); }
