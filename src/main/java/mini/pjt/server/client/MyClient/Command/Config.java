@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class CommandConfig {
+public class Config {
   public static void main(String[] args) {
     String os = System.getProperty("os.name").toLowerCase();
     // os 구분자
@@ -24,7 +24,7 @@ public class CommandConfig {
         e.printStackTrace();
       }
 
-    } else if (os.contains("nix") || os.contains("nux") || os.contains("aix") || os.contains("linux") || os.contains("mac")) {
+    } else if (os.contains("linux") || os.contains("mac")) {
       try {
         String line;
         InputStream is;

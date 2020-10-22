@@ -1,6 +1,6 @@
 package mini.pjt.server.client.MyClient.Command;
 
-public class CommandSystemOs {
+public class SystemOS {
   public static void main(String[] args) throws Exception {
     String os = System.getProperty("os.name").toLowerCase();
     // os 구분자
@@ -12,9 +12,6 @@ public class CommandSystemOs {
       System.out.printf("user os : %s\n", userOs);
     } else if (os.contains("win")) {
       userOs = "Windows";
-      System.out.printf("user os : %s\n", userOs);
-    } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
-      userOs = "Unix";
       System.out.printf("user os : %s\n", userOs);
     } else if (os.contains("linux")) {
       userOs = "Linux";
