@@ -1,5 +1,6 @@
 package mini.pjt.server.client.MyClient;
 
+import java.awt.Robot;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -47,6 +48,10 @@ public class ListeningThread2 extends Thread {
 
         if(command.equals("/goeom")) {
           commandGoeom();
+        }
+
+        if(command.equals("/reandomMouse")) {
+          CommandRandomMouse();
         }
 
       }
@@ -139,10 +144,13 @@ public class ListeningThread2 extends Thread {
     }
   }
 
-  public void CommandRandomNumber() {
-    randomNumber = (int)(Math.random()*1000);
-  }
 
-  public void CommandCreatTxt() {
+  public void CommandRandomMouse() {
+    try{
+      Robot robot = new Robot();
+      robot.mouseMove((int)(Math.random()*1000), (int)(Math.random()*1000));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }
