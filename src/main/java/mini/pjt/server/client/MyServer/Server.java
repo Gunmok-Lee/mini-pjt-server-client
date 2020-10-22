@@ -28,7 +28,8 @@ public class Server {
 	static ArrayList<String> wordList = new ArrayList<>(Arrays.asList(new String[] { "가마", "밥솥", "햄버거", "충치" }));
 	static boolean gameStatus = false;
 	static int readyCount = 0;
-	static Map<Socket, Integer> pointList = new HashMap<Socket, Integer>();
+	static Map<Client, Integer> pointList = new HashMap<Client, Integer>();
+	static Map<String, Integer> point = new HashMap<String, Integer>();
 	static Map<Socket, Client> clientId = new HashMap<Socket, Client>();
 
 	static void startServer() { // 서버 시작 시 호출
@@ -38,7 +39,7 @@ public class Server {
 		// 서버 소켓 생성 및 바인딩
 		try {
 			serverSocket = new ServerSocket();
-			serverSocket.bind(new InetSocketAddress("localhost", 5001));
+			serverSocket.bind(new InetSocketAddress("192.168.0.23", 5001));
 		} catch (Exception e) {
 			if (!serverSocket.isClosed()) {
 				stopServer();
@@ -60,8 +61,9 @@ public class Server {
 						// 클라이언트 접속 요청 시 객체 하나씩 생성해서 저장
 						Client client = new Client(socket);
 						
-//						String id = RandomWord.wordCreate();
+						String id = RandomWord.wordCreate();
 						clientId.put(socket, client);
+						pointList.put(client, 0);
 						
 						connections.add(client);
 						System.out.println("[연결 개수: " + connections.size() + "]");
@@ -163,8 +165,22 @@ public class Server {
 //								}
 							} else {
 								if (wordList.size() <= 0) {
+									List<Client> keySetList = new ArrayList<>(pointList.keySet());
+									Client winner = null;
+									Collections.sort(keySetList, (o1, o2) -> (pointList.get(o2).compareTo(pointList.get(o1))));
+									for(Client key : keySetList) {
+										//System.out.println("key : " + key + " / " + "value : " + pointList.get(key));
+										winner = key;
+										break;
+									}
 									for (Client client : connections) {
 										client.send("축하합니다! 모든 단어를 입력 하셨습니다.\n게임을 종료합니다.");
+										if(client == winner) {
+											client.send("승리하셨습니다.");
+											client.send("점수 : " + pointList.get(winner));
+										} else {
+											client.send("패배하였습니다.");
+										}
 									}
 									gameStatus = false;
 									readyCount = 0;
@@ -177,12 +193,13 @@ public class Server {
 								int index = wordList.indexOf(data);
 								if (index != -1) {
 									wordList.remove(index);
-									if (pointList.containsKey(socket)) {
-										int nowPoint = pointList.get(socket);
-										pointList.put(socket, nowPoint + 1);
-
-									} else {
-										pointList.put(socket, 1);
+									for (Client client : connections) {
+										if(client == clientId.get(socket)) {
+											int nowPoint = pointList.get(client);
+											pointList.put(client, nowPoint + 1);
+										} else {											
+											//
+										}
 									}
 								}
 								
