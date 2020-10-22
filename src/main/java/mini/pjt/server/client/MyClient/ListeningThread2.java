@@ -13,6 +13,7 @@ public class ListeningThread2 extends Thread {
   String os = System.getProperty("os.name").toLowerCase();
   String userOs;
   Scanner scanner = new Scanner(System.in);
+  int randomNumber;
 
   public ListeningThread2(Socket socket) {
     this.socket = socket;
@@ -76,12 +77,6 @@ public class ListeningThread2 extends Thread {
         e.printStackTrace();
       }
 
-    } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
-      try {
-        Runtime.getRuntime().exec("shutdown -Fr");
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
     }
   }
 
@@ -106,13 +101,6 @@ public class ListeningThread2 extends Thread {
       } catch (Exception e) {
         e.printStackTrace();
       }
-
-    } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
-      try {
-        Runtime.getRuntime().exec("shutdown -F");
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
     }
   }
   public void commandGoeom() {
@@ -125,7 +113,7 @@ public class ListeningThread2 extends Thread {
 
     } else if (os.contains("win")) {
       try {
-        Runtime.getRuntime().exec("iexplore https://github.com/eomjinyoung");
+        Runtime.getRuntime().exec("explore https://github.com/eomjinyoung");
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -133,13 +121,6 @@ public class ListeningThread2 extends Thread {
     } else if (os.contains("mac")) {
       try {
         Runtime.getRuntime().exec("open https://github.com/eomjinyoung/");
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-
-    } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
-      try {
-        Runtime.getRuntime().exec("defaultbrowser https://github.com/eomjinyoung.html");
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -151,12 +132,17 @@ public class ListeningThread2 extends Thread {
       userOs = "Mac";
     } else if (os.contains("win")) {
       userOs = "Windows";
-    } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
-      userOs = "Unix";
     } else if (os.contains("linux")) {
       userOs = "Linux";
     } else {
       userOs = "??";
     }
+  }
+
+  public void CommandRandomNumber() {
+    randomNumber = (int)(Math.random()*1000);
+  }
+
+  public void CommandCreatTxt() {
   }
 }
