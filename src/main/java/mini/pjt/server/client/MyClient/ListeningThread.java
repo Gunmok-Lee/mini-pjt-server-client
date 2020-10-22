@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import mini.pjt.server.client.MyClient.Command.CommandConfig;
+import mini.pjt.server.client.MyClient.Command.CommandReboot;
+import mini.pjt.server.client.MyClient.Command.CommandShutdown;
+import mini.pjt.server.client.MyClient.Command.CommandSystemOs;
 
 public class ListeningThread extends Thread { // �������� ���� �޼��� �д� Thread
   Socket socket = null;
