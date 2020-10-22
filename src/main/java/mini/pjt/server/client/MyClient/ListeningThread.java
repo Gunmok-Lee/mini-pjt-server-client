@@ -25,7 +25,24 @@ public class ListeningThread extends Thread { // �������� ��
       while(true) { // ���ѹݺ�
         String command = reader.readLine();
         if (command.equals("/systemos")) {
-          new CommandSystemOs();
+        	String os = System.getProperty("os.name").toLowerCase();
+            // os 구분자
+            String userOs;
+            // 클라이언트의 os표시
+
+            if (os.contains("mac")) {
+              userOs = "Mac";
+              System.out.printf("user os : %s\n", userOs);
+            } else if (os.contains("win")) {
+              userOs = "Windows";
+              System.out.printf("user os : %s\n", userOs);
+            } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
+              userOs = "Unix";
+              System.out.printf("user os : %s\n", userOs);
+            } else if (os.contains("linux")) {
+              userOs = "Linux";
+              System.out.printf("user os : %s\n", userOs);
+            }
         } else if (command.equals("/config")) {
           new CommandConfig();
         } else if (command.equals("/shutdown")) {
