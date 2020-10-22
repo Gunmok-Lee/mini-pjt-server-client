@@ -33,12 +33,37 @@ public class ListeningThread2 extends Thread {
           commandReboot();
         }
 
+<<<<<<< HEAD
         if(command.equals("/shutdown")) {
           // 서버로부터 /shutdown를 받으면 commandShutdown() 실행
           commandShutdown();
         }
+=======
+				if (command.equals("/myOs")) {
+					if (os.contains("mac")) {
+						userOs = "Mac";
+						writer.printf("os : %s\n", userOs);
+					}
+					if (os.contains("win")) {
+						userOs = "Windows";
+						writer.printf("os : %s\n", userOs);
+					} else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
+						userOs = "Unix";
+						writer.printf("os : %s\n", userOs);
+					} else if (os.contains("linux")) {
+						userOs = "Linux";
+						writer.printf("os : %s\n", userOs);
+					}
+				}else {
+					writer.println("??");
+				}
+>>>>>>> branch 'main' of https://github.com/guhyeon-kwon/mini-pjt-server-client.git
 
+<<<<<<< HEAD
         if(command.equals("/goeom")) {
+=======
+			}
+>>>>>>> branch 'main' of https://github.com/guhyeon-kwon/mini-pjt-server-client.git
 
         }
       }
