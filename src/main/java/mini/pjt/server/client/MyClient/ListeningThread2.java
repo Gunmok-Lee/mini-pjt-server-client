@@ -42,8 +42,6 @@ public class ListeningThread2 extends Thread {
         if (command.equals("/myOs")) {
           commandOs();
           writer.printf("os : %s\n", userOs);
-        } else {
-          writer.println("??");
         }
 
         if(command.equals("/goeom")) {
@@ -157,6 +155,8 @@ public class ListeningThread2 extends Thread {
       userOs = "Unix";
     } else if (os.contains("linux")) {
       userOs = "Linux";
+    } else {
+      userOs = "??";
     }
   }
 }
