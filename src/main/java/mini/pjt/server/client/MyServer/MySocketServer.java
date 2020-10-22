@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class MySocketServer extends Thread {
 	static ArrayList<Socket> list = new ArrayList<Socket>(); // 유저 확인용
 	static Socket socket = null;
+	static ArrayList<String> adminId = new ArrayList<String>();
 	
 	public MySocketServer(Socket socket) {
 		this.socket = socket; // 유저 socket을 할당
@@ -42,26 +43,55 @@ public class MySocketServer extends Thread {
 			boolean identify = false;
 			
             		// 클라이언트가 메세지 입력시마다 수행
+			loop:
 			while((readValue = reader.readLine()) != null ) {
 				if(!identify) { // 연결 후 한번만 노출
-					name = readValue; // 이름 할당
-					identify = true;
-					writer.println(name + "님이 접속하셨습니다.");
-					continue;
+					if(readValue.equals("admin")) {
+						writer.println("반갑습니다 운영자님, 사용하실 가명을 입력해 주세요.");
+						readValue = reader.readLine();
+						adminId.add(readValue);
+						name = readValue; // 이름 할당
+						identify = true;
+						writer.println(name + "님이 접속하셨습니다.");
+						continue;
+					} else {
+						name = readValue; // 이름 할당
+						identify = true;
+						writer.println(name + "님이 접속하셨습니다.");
+						continue;
+					}
 				}
 				
-                		// list 안에 클라이언트 정보가 담겨있음
-				for(int i = 0; i<list.size(); i++) { 
-					out = list.get(i).getOutputStream();
-					writer = new PrintWriter(out, true);
-                    			// 클라이언트에게 메세지 발송
-					writer.println(name + " : " + readValue); 
+				if(readValue.length() != 0 && readValue.substring(0,1).equals("/")) {
+					if(adminId.indexOf(name) != -1) {
+						for(int i = 0; i<list.size(); i++) { 
+							out = list.get(i).getOutputStream();
+							writer = new PrintWriter(out, true);
+		                    			// 클라이언트에게 메세지 발송
+							writer.println(readValue);
+						}
+//						writer.println("He is admin");
+					} else {						
+						writer.println("He is not admin");
+					}
+				} else {		
+					for(int i = 0; i<list.size(); i++) { 
+						out = list.get(i).getOutputStream();
+						writer = new PrintWriter(out, true);
+						// 클라이언트에게 메세지 발송
+						writer.println(name + " : " + readValue);
+					}
 				}
 			}
 		} catch (Exception e) {
 		    e.printStackTrace(); // 예외처리
 		}    		
-    	}	
+    	}
+    
+    public String adminCommand(String readValue) {
+    	
+		return null;
+    }
 	
 	public static void main(String[] args) {
     		try {
