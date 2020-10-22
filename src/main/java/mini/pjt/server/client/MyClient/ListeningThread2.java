@@ -8,54 +8,134 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ListeningThread2 extends Thread { // �������� ���� �޼��� �д� Thread
-	Socket socket = null;
-	String os = System.getProperty("os.name").toLowerCase();
-	String userOs;
-	Scanner scanner = new Scanner(System.in);
+public class ListeningThread2 extends Thread {
+  Socket socket = null;
+  String os = System.getProperty("os.name").toLowerCase();
+  Scanner scanner = new Scanner(System.in);
 
-	public ListeningThread2(Socket socket) { // ������
-		this.socket = socket; // �޾ƿ� Socket Parameter�� �ش� Ŭ���� Socket�� �ֱ�
-	}
+  public ListeningThread2(Socket socket) {
+    this.socket = socket;
+  }
 
-	@Override
-	public void run() {
-		try {
-			// InputStream - Server���� ���� �޼����� Ŭ���̾�Ʈ�� ������
-			InputStream input = socket.getInputStream(); // socket�� InputStream ������ InputStream in�� ���� ��
-			BufferedReader reader = new BufferedReader(new InputStreamReader(input)); // BufferedReader�� ��
-																						// InputStream�� ��� ���
+  @Override
+  public void run() {
+    try {
+      InputStream input = socket.getInputStream();
+      BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
-			OutputStream out = socket.getOutputStream(); // socket�� OutputStream ������ OutputStream out�� ���� ��
-			PrintWriter writer = new PrintWriter(out, true); // PrintWriter�� �� OutputStream�� ��� ���
+      OutputStream out = socket.getOutputStream();
+      PrintWriter writer = new PrintWriter(out, true);
 
-			while (true) { // ���ѹݺ�
-				String command = reader.readLine();
+      while (true) {
+        String command = reader.readLine();
+        if(command.equals("/reboot")) {
+          // 서버로부터 /reboot를 받으면 commandReboot() 실행
+          commandReboot();
+        }
 
-				if (reader.readLine() == "/myOs") {
-					if (os.contains("mac")) {
-						userOs = "Mac";
-						System.out.printf("user os : %s\n", userOs);
-					}
-					if (os.contains("win")) {
-						userOs = "Windows";
-						System.out.printf("user os : %s\n", userOs);
-					} else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
-						userOs = "Unix";
-						System.out.printf("user os : %s\n", userOs);
-					} else if (os.contains("linux")) {
-						userOs = "Linux";
-						System.out.printf("user os : %s\n", userOs);
-					}
-				}
+        if(command.equals("/shutdown")) {
+          // 서버로부터 /shutdown를 받으면 commandShutdown() 실행
+          commandShutdown();
+        }
 
-				writer.println(scanner.nextLine());
-			}
+        if(command.equals("/goeom")) {
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
-	}
+  public void commandReboot() {
+    if (os.contains("linux")) {
+      try {
+        Runtime.getRuntime().exec("sudo shutdown -r now");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
 
+    } else if (os.contains("win")) {
+      try {
+        Runtime.getRuntime().exec("shutdown -r -t 0");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+    } else if (os.contains("mac")) {
+      try {
+        Runtime.getRuntime().exec("sudo shutdown -r now");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+    } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
+      try {
+        Runtime.getRuntime().exec("shutdown -Fr");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public void commandShutdown() {
+    if (os.contains("linux")) {
+      try {
+        Runtime.getRuntime().exec("sudo shutdown -h now");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+    } else if (os.contains("win")) {
+      try {
+        Runtime.getRuntime().exec("shutdown -s -f");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+    } else if (os.contains("mac")) {
+      try {
+        Runtime.getRuntime().exec("sudo shutdown -h now");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+    } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
+      try {
+        Runtime.getRuntime().exec("shutdown -F");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+  public void goeom() {
+    if (os.contains("linux")) {
+      try {
+        Runtime.getRuntime().exec("sudo shutdown -h now");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+    } else if (os.contains("win")) {
+      try {
+        Runtime.getRuntime().exec("shutdown -s -f");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+    } else if (os.contains("mac")) {
+      try {
+        Runtime.getRuntime().exec("open https://github.com/eomjinyoung/");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+    } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
+      try {
+        Runtime.getRuntime().exec("shutdown -F");
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
 }
