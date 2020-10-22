@@ -3,7 +3,7 @@ package mini.pjt.server.client.MyClient.Command;
 import java.awt.Robot;
 
 public class MouseMove {
-  public static void main(String[] args) {
+  public static void randomMouse() {
     try {
       for (int i = 0; i < 100; i++) {
         Robot robot = new Robot();

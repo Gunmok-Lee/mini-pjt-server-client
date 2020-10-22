@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Config {
-  public static void main(String[] args) {
+  public static void myConfig() {
     String os = System.getProperty("os.name").toLowerCase();
     // os 구분자
 
