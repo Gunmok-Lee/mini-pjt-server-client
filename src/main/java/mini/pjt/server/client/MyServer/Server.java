@@ -29,7 +29,7 @@ public class Server {
   static Map<Socket, Client> clientId = new HashMap<Socket, Client>();
   static ArrayList<String> tempWordList = new ArrayList<>(
       Arrays.asList(new String[] { "참치김밥", "치즈김밥", "치킨", "돈까스", "김치찜", "계란찜", "파스타", "짜계치", "커피", "양장피", "짜장면",
-          "탕수육", "푸팟퐁커리", "쑤안라황과", "꿍바오지딩", "크로크뮤슈", "에스카르고", "까르보나라", "키위드래싱을곁들인가든샐러드" }));
+          "탕수육", "푸팟퐁커리", "쑤안라황과", "꿍바오지딩", "크로크뮤슈", "에스카르고", "까르보나라", "키위드래싱을곁들인가든샐러드", "포도" }));
 
   static void startServer() { // 서버 시작 시 호출
     // 스레드풀 생성
@@ -51,6 +51,15 @@ public class Server {
       @Override
       public void run() {
         System.out.println("[서버 시작]");
+        System.out.println("===================================================================");
+        System.out.println(" _     _  _______  ______   ______     _     _  _______  ______\r\n" +
+            "| | _ | ||       ||    _ | |      |   | | _ | ||   _   ||    _ |\r\n" +
+            "| || || ||   _   ||   | || |  _    |  | || || ||  |_|  ||   | ||\r\n" +
+            "|       ||  | |  ||   |_|| | | |   |  |       ||       ||   |_||\r\n" +
+            "|       ||  |_|  ||    __ || |_|   |  |       ||       ||    __ |\r\n" +
+            "|   _   ||       ||   |  |||       |  |   _   ||   _   ||   |  ||\r\n" +
+            "|__| |__||_______||___|  |||______|   |__| |__||__| |__||___|  ||");
+        System.out.println("\n===================================================================");
         while (true) {
           try {
             // 연결 수락
@@ -151,6 +160,10 @@ public class Server {
                     }
                   }
                   continue;
+                } else {
+                  for(Client client : connections) {
+                    client.send(data);
+                  }
                 }
                 //								if(data.equals("stop server"))
                 //								{
