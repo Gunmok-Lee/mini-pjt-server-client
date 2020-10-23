@@ -155,6 +155,10 @@ public class Server {
 										}
 									}
 									continue;
+								} else {
+									for(Client client : connections) {
+										client.send(data); 
+									}
 								}
 //								if(data.equals("stop server")) 
 //								{

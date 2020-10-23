@@ -112,7 +112,7 @@ public class Client{
     startClient();
     while(true) {
       Scanner sc = new Scanner(System.in);
-      //System.out.print("입력 > ");
+      //System.out.print("\n입력 > ");
       String message = sc.nextLine();
       // stop client라고 입력하면 해당 클라이언트 종료
       if(message.equals("stop client"))
